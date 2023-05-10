@@ -1,4 +1,5 @@
 import logo from "../assets/logo.svg";
+import { Link } from "react-router-dom";
 
 const Login = () => {
 
@@ -6,7 +7,7 @@ const Login = () => {
   return (
     <>
       <img src={logo} alt="logo" />
-      <div className="max-w-custom max-h-custom bg-semidarkblue w-full px-6 pt-6 pb-8">
+      <div className="max-w-custom max-h-custom bg-semidarkblue w-full px-6 pt-6 pb-8 rounded-[10px]">
         <h1 className="text-white text-3xl">Login</h1>
         <form className="mt-10 mb-6">
           <input
@@ -23,9 +24,9 @@ const Login = () => {
         </form>
         <p className="text-white text-center text-sm">
             Don't have an account?
-            <a href="#" className="text-red-500 ml-2">
+            <Link to={"/register"} className="text-red-500 ml-2">
                 Sign up
-            </a>
+            </ Link>
         </p>
       </div>
     </>
