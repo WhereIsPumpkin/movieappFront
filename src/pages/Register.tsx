@@ -1,13 +1,9 @@
 import React from "react";
-
 import logo from "../assets/logo.svg";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-type RegisterProps = {
-  setHasRegistered: (value: boolean) => void;
-};
 
-const Register = ({ setHasRegistered }: RegisterProps) => {
+const Register = () => {
   const navigate = useNavigate();
 
 
@@ -30,7 +26,6 @@ const Register = ({ setHasRegistered }: RegisterProps) => {
         }
       );
       console.log(response.data);
-      setHasRegistered(true);
       navigate("/confirm-email");
     } catch (error) {
       console.error(error);
