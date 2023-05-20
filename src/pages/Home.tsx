@@ -1,10 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import axios from "axios";
 import Header from "../components/Header";
 import Search from "../components/Search";
 import movieCat from "../assets/icon-category-movie.svg";
 import fullBookMark from "../assets/icon-bookmark-full.svg";
-import emptyBookMark from "../assets/icon-bookmark-empty.svg";
+// import emptyBookMark from "../assets/icon-bookmark-empty.svg";
+import { useDispatch, useSelector } from "react-redux";
+import { updateMovies, selectMovies } from "../store/features/movieSlice";
 import tvCat from "../assets/icon-category-tv.svg";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 
@@ -12,29 +14,14 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import "@splidejs/react-splide/css";
 
 const Home = () => {
-  interface Movie {
-    _id: string;
-    thumbnail: {
-      trending: {
-        small: string;
-      };
-      regular: {
-        small: string;
-      };
-    };
-    title: string;
-    year: number;
-    category: string;
-    rating: string;
-  }
-
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const dispatch = useDispatch();
+  const movies = useSelector(selectMovies);
 
   useEffect(() => {
     axios.get("https://movieback.onrender.com/movies").then((res) => {
-      setMovies(res.data.movies);
+      dispatch(updateMovies(res.data.movies));
     });
-  }, []);
+  }, [dispatch]);
 
   return (
     <>

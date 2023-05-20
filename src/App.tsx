@@ -1,15 +1,17 @@
 import { useEffect } from "react";
 import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ConfirmEmail from "./pages/ConfirmEmail";
+import Movies from "./pages/Movies";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const token = Cookies.get("token");
@@ -21,21 +23,26 @@ function App() {
           },
         })
         .then((res) => {
-          if (res.data.valid) {
+          if (
+            res.data.valid &&
+            (location.pathname === "/login" ||
+              location.pathname === "/register")
+          ) {
             navigate("/home");
           }
         });
     }
-  }, [navigate]);
+  }, [navigate, location]);
 
   return (
-    <div className="bg-darkblue h-full ">
+    <div className="bg-darkblue min-h-screen ">
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/confirm-email" element={<ConfirmEmail />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/movies" element={<Movies />} />
       </Routes>
     </div>
   );
