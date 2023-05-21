@@ -1,6 +1,8 @@
 import fullBookMark from "../assets/icon-bookmark-full.svg";
 import emptyBookMark from "../assets/icon-bookmark-empty.svg";
 import movieCat from "../assets/icon-category-movie.svg";
+import { useDispatch } from "react-redux";
+import { toggleBookmark } from "../store/features/movieSlice";
 import tvCat from "../assets/icon-category-tv.svg";
 
 export type Media = {
@@ -22,6 +24,7 @@ type MediaItemProps = {
 };
 
 const MediaItem = ({ media }: MediaItemProps) => {
+  const dispatch = useDispatch();
   const { _id, thumbnail, isBookmarked, year, category, rating, title } = media;
 
   return (
@@ -32,7 +35,12 @@ const MediaItem = ({ media }: MediaItemProps) => {
       />
 
       <div className="w-8 h-8 bg-[#10141E] bg-opacity-50 absolute top-2 right-2 flex items-center justify-center rounded-[50%]">
-        <img src={isBookmarked ? fullBookMark : emptyBookMark} />
+        <img
+          src={isBookmarked ? fullBookMark : emptyBookMark}
+          onClick={() => {
+            dispatch(toggleBookmark(_id));
+          }}
+        />
       </div>
 
       <div className="text-white flex flex-col">

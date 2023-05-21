@@ -17,7 +17,7 @@ const TVShows = () => {
       <div className="flex flex-wrap pl-4">
         <ul className="flex flex-wrap h-[1200px] flex-col gap-x-[15px] gap-y-[16px]">
           {movies
-            .filter((movie) => movie.category === "TV Series") // Filter TV shows based on the category
+            .filter((movie) => movie.category === "TV Series")
             .map((tvShow) => (
               <MediaItem media={tvShow} key={tvShow._id} />
             ))}
