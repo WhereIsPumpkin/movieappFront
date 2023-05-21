@@ -31,16 +31,22 @@ const initialState: MovieState = {
 }
 
 export const movieSlice = createSlice({
- name: 'movies',
- initialState,
- reducers: {
- updateMovies: (state, action: PayloadAction<Movie[]>) => {
- state.movies = action.payload;
- },
- },
-});
-
-export const { updateMovies } = movieSlice.actions;
+    name: 'movies',
+    initialState,
+    reducers: {
+      updateMovies: (state, action: PayloadAction<Movie[]>) => {
+        state.movies = action.payload;
+      },
+      toggleBookmark: (state, action: PayloadAction<string>) => {
+        const movieIndex = state.movies.findIndex(movie => movie._id === action.payload);
+        if (movieIndex !== -1) {
+          state.movies[movieIndex].isBookmarked = !state.movies[movieIndex].isBookmarked;
+        }
+      }
+    },
+  });
+  
+  export const { updateMovies, toggleBookmark } = movieSlice.actions;
 
 export default movieSlice.reducer;
 

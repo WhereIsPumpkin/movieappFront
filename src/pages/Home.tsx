@@ -4,8 +4,10 @@ import Header from "../components/Header";
 import Search from "../components/Search";
 import movieCat from "../assets/icon-category-movie.svg";
 import fullBookMark from "../assets/icon-bookmark-full.svg";
-// import emptyBookMark from "../assets/icon-bookmark-empty.svg";
+import emptyBookMark from "../assets/icon-bookmark-empty.svg";
 import { useDispatch, useSelector } from "react-redux";
+import { toggleBookmark } from "../store/features/movieSlice";
+
 import { updateMovies, selectMovies } from "../store/features/movieSlice";
 import tvCat from "../assets/icon-category-tv.svg";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
@@ -113,7 +115,12 @@ const Home = () => {
                 />
 
                 <div className="w-8 h-8 bg-[#10141E] bg-opacity-50 absolute top-2 right-4 flex items-center justify-center rounded-[50%]">
-                  <img src={fullBookMark} />
+                  <img
+                    src={movie.isBookmarked ? fullBookMark : emptyBookMark}
+                    onClick={() => {
+                      dispatch(toggleBookmark(movie._id));
+                    }}
+                  />
                 </div>
 
                 <div className=" text-white flex flex-col ">

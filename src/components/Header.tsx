@@ -37,7 +37,7 @@ const Header = () => {
         <img
           src={location.pathname === "/series" ? activeSeriesNav : seriesNav}
           onClick={() => {
-            // navigate("/series");
+            navigate("/series");
           }}
           alt="series"
           className="w-4 h-4"
@@ -47,7 +47,7 @@ const Header = () => {
             location.pathname === "/bookmark" ? activeBookmarkNav : bookmarkNav
           }
           onClick={() => {
-            // navigate("/bookmark");
+            navigate("/bookmark");
           }}
           alt="bookmark"
           className="w-4 h-4"

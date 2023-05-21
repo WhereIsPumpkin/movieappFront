@@ -3,24 +3,23 @@ import Search from "../components/Search";
 import { useSelector } from "react-redux";
 import { selectMovies } from "../store/features/movieSlice";
 import MediaItem from "../components/MediaItem";
-import { Media } from "../components/MediaItem";
 
-const Movies = () => {
+const TVShows = () => {
   const movies = useSelector(selectMovies);
 
   return (
     <>
       <Header />
-      <Search placeholder="Search for movies" />
+      <Search placeholder="Search for TV shows" />
       <h1 className="font-outfit font-light text-[20px] text-white pl-4 mb-6">
-        Movies
+        TV Shows
       </h1>
       <div className="flex flex-wrap pl-4">
-        <ul className="flex flex-wrap h-[1400px] flex-col gap-x-[15px] gap-y-[16px]">
+        <ul className="flex flex-wrap h-[1200px] flex-col gap-x-[15px] gap-y-[16px]">
           {movies
-            .filter((movie) => movie.category === "Movie")
-            .map((movie) => (
-              <MediaItem media={movie as Media} />
+            .filter((movie) => movie.category === "TV Series") // Filter TV shows based on the category
+            .map((tvShow) => (
+              <MediaItem media={tvShow} key={tvShow._id} />
             ))}
         </ul>
       </div>
@@ -28,4 +27,4 @@ const Movies = () => {
   );
 };
 
-export default Movies;
+export default TVShows;

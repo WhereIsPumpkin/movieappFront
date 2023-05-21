@@ -6,7 +6,9 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Home from "./pages/Home";
 import ConfirmEmail from "./pages/ConfirmEmail";
+import Bookmarked from "./pages/BookMarked";
 import Movies from "./pages/Movies";
+import TvShows from "./pages/TvShows";
 import { Route, Routes, Navigate } from "react-router-dom";
 
 function App() {
@@ -43,6 +45,8 @@ function App() {
         <Route path="/confirm-email" element={<ConfirmEmail />} />
         <Route path="/home" element={<Home />} />
         <Route path="/movies" element={<Movies />} />
+        <Route path="/series" element={<TvShows />} />
+        <Route path="/bookmark" element={<Bookmarked />} />
       </Routes>
     </div>
   );
