@@ -6,7 +6,12 @@ import { selectMovies } from "../store/features/movieSlice";
 import MediaItem from "../components/MediaItem";
 import { Media } from "../components/MediaItem";
 
-const Movies = () => {
+interface MoviesProps {
+  bookmarks: string[];
+  setBookmarks: (bookmarks: string[]) => void;
+}
+
+const Movies = ({ bookmarks, setBookmarks }: MoviesProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const movies = useSelector(selectMovies);
 
@@ -30,7 +35,12 @@ const Movies = () => {
                 movie.title.toLowerCase().includes(searchTerm.toLowerCase())
             )
             .map((movie) => (
-              <MediaItem media={movie as Media} />
+              <MediaItem
+                media={movie as Media}
+                key={movie._id}
+                setBookmarks={setBookmarks}
+                bookmarks={bookmarks}
+              />
             ))}
         </ul>
       </div>

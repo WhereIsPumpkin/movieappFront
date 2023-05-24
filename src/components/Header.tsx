@@ -7,12 +7,14 @@ import activeMoviesNav from "../assets/activeMovie.svg";
 import activeSeriesNav from "../assets/activeTvSeries.svg";
 import activeBookmarkNav from "../assets/activeBookmark.svg";
 import activeHomeNav from "../assets/activeHome.svg";
-import avatar from "../assets/image-avatar.png";
 import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../store/features/userSlice";
 
 const Header = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const user = useSelector(selectUser);
 
   return (
     <header className="bg-semidarkblue flex w-full p-4 items-center justify-between">
@@ -53,8 +55,12 @@ const Header = () => {
           className="w-4 h-4"
         />
       </div>
-      <div className="border border-solid border-white rounded-full">
-        <img src={avatar} alt="avatar" className="w-6 h-6" />
+      <div className="border border-solid border-white rounded-full overflow-hidden">
+        <img
+          src={`https://movieback.onrender.com/${user.avatar}`}
+          alt="avatar"
+          className="w-6 h-6"
+        />
       </div>
     </header>
   );

@@ -1,9 +1,11 @@
 import fullBookMark from "../assets/icon-bookmark-full.svg";
 import emptyBookMark from "../assets/icon-bookmark-empty.svg";
 import movieCat from "../assets/icon-category-movie.svg";
-import { useDispatch } from "react-redux";
-import { toggleBookmark } from "../store/features/movieSlice";
 import tvCat from "../assets/icon-category-tv.svg";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { selectUser } from "../store/features/userSlice";
 
 export type Media = {
   _id: string;
@@ -21,11 +23,43 @@ export type Media = {
 
 type MediaItemProps = {
   media: Media;
+  bookmarks: string[];
+  setBookmarks: (bookmarks: string[]) => void;
 };
 
-const MediaItem = ({ media }: MediaItemProps) => {
-  const dispatch = useDispatch();
-  const { _id, thumbnail, isBookmarked, year, category, rating, title } = media;
+const MediaItem = ({ media, setBookmarks }: MediaItemProps) => {
+  const { _id, thumbnail, year, category, rating, title } = media;
+  const user = useSelector(selectUser);
+
+  const fetchBookmarks = async () => {
+    try {
+      const response = await axios.post(
+        "https://movieback.onrender.com/verify",
+        {
+          token: Cookies.get("token"),
+        }
+      );
+      setBookmarks(response.data.user.bookmarks);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleBookmark = async (id: string) => {
+    try {
+      await axios.put(
+        "https://movieback.onrender.com/bookmark",
+        { movieId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <li key={_id} className="text-white relative">
@@ -36,9 +70,10 @@ const MediaItem = ({ media }: MediaItemProps) => {
 
       <div className="w-8 h-8 bg-[#10141E] bg-opacity-50 absolute top-2 right-2 flex items-center justify-center rounded-[50%]">
         <img
-          src={isBookmarked ? fullBookMark : emptyBookMark}
-          onClick={() => {
-            dispatch(toggleBookmark(_id));
+          src={user.bookmarks.includes(_id) ? fullBookMark : emptyBookMark}
+          onClick={async () => {
+            await handleBookmark(_id);
+            await fetchBookmarks();
           }}
         />
       </div>

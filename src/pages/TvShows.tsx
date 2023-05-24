@@ -5,7 +5,12 @@ import { useSelector } from "react-redux";
 import { selectMovies } from "../store/features/movieSlice";
 import MediaItem from "../components/MediaItem";
 
-const TVShows = () => {
+interface SeriesProps {
+  bookmarks: string[];
+  setBookmarks: (bookmarks: string[]) => void;
+}
+
+const TVShows = ({ bookmarks, setBookmarks }: SeriesProps) => {
   const [searchTerm, setSearchTerm] = useState("");
   const movies = useSelector(selectMovies);
 
@@ -29,7 +34,12 @@ const TVShows = () => {
                 movie.title.toLowerCase().includes(searchTerm.toLowerCase())
             )
             .map((tvShow) => (
-              <MediaItem media={tvShow} key={tvShow._id} />
+              <MediaItem
+                media={tvShow}
+                key={tvShow._id}
+                setBookmarks={setBookmarks}
+                bookmarks={bookmarks}
+              />
             ))}
         </ul>
       </div>

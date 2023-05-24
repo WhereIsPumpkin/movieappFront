@@ -6,16 +6,18 @@ import movieCat from "../assets/icon-category-movie.svg";
 import fullBookMark from "../assets/icon-bookmark-full.svg";
 import emptyBookMark from "../assets/icon-bookmark-empty.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { toggleBookmark } from "../store/features/movieSlice";
-
 import { updateMovies, selectMovies } from "../store/features/movieSlice";
 import tvCat from "../assets/icon-category-tv.svg";
 import { Splide, SplideSlide } from "@splidejs/react-splide";
-
-// Import css files for the slider
 import "@splidejs/react-splide/css";
+import Cookies from "js-cookie";
 
-const Home = () => {
+interface HomeProps {
+  bookmarks: string[];
+  setBookmarks: React.Dispatch<React.SetStateAction<string[]>>;
+}
+
+const Home: React.FC<HomeProps> = ({ bookmarks, setBookmarks }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const dispatch = useDispatch();
   const movies = useSelector(selectMovies);
@@ -29,6 +31,38 @@ const Home = () => {
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value);
   };
+
+  const fetchBookmarks = async () => {
+    try {
+      const response = await axios.post(
+        "https://movieback.onrender.com/verify",
+        {
+          token: Cookies.get("token"),
+        }
+      );
+      setBookmarks(response.data.user.bookmarks);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleBookmark = async (id: string) => {
+    try {
+      await axios.put(
+        "https://movieback.onrender.com/bookmark",
+        { movieId: id },
+        {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`,
+          },
+        }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  fetchBookmarks();
 
   return (
     <>
@@ -118,7 +152,7 @@ const Home = () => {
                 movie.title.toLowerCase().includes(searchTerm.toLowerCase())
               )
               .map((movie) => (
-                <li className="flex flex-col gap-2 relative">
+                <li className="flex flex-col gap-2 relative" key={movie._id}>
                   <img
                     className="rounded-lg w-[164px] h-[110px]"
                     src={`https://movieback.onrender.com/${movie.thumbnail.regular.small}`}
@@ -127,9 +161,14 @@ const Home = () => {
 
                   <div className="w-8 h-8 bg-[#10141E] bg-opacity-50 absolute top-2 right-4 flex items-center justify-center rounded-[50%]">
                     <img
-                      src={movie.isBookmarked ? fullBookMark : emptyBookMark}
-                      onClick={() => {
-                        dispatch(toggleBookmark(movie._id));
+                      src={
+                        bookmarks.includes(movie._id)
+                          ? fullBookMark
+                          : emptyBookMark
+                      }
+                      onClick={async () => {
+                        await handleBookmark(movie._id);
+                        await fetchBookmarks();
                       }}
                     />
                   </div>

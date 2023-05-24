@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
@@ -10,19 +10,21 @@ import Bookmarked from "./pages/BookMarked";
 import Movies from "./pages/Movies";
 import TvShows from "./pages/TvShows";
 import { Route, Routes, Navigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { updateUser } from "./store/features/userSlice";
 
 function App() {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  const [bookmarks, setBookmarks] = useState<string[]>([]);
 
   useEffect(() => {
     const token = Cookies.get("token");
     if (token) {
       axios
-        .get("https://movieback.onrender.com/verify", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+        .post("https://movieback.onrender.com/verify", {
+          token,
         })
         .then((res) => {
           if (
@@ -33,8 +35,25 @@ function App() {
             navigate("/home");
           }
         });
+    } else {
+      navigate("/login");
     }
   }, [navigate, location]);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      axios
+        .post("https://movieback.onrender.com/verify", {
+          token,
+        })
+        .then((res) => {
+          if (res.data.valid) {
+            dispatch(updateUser(res.data.user));
+          }
+        });
+    }
+  }, [dispatch, bookmarks]);
 
   return (
     <div className="bg-darkblue min-h-screen ">
@@ -43,10 +62,26 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/confirm-email" element={<ConfirmEmail />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route path="/series" element={<TvShows />} />
-        <Route path="/bookmark" element={<Bookmarked />} />
+        <Route
+          path="/home"
+          element={<Home bookmarks={bookmarks} setBookmarks={setBookmarks} />}
+        />
+        <Route
+          path="/movies"
+          element={<Movies bookmarks={bookmarks} setBookmarks={setBookmarks} />}
+        />
+        <Route
+          path="/series"
+          element={
+            <TvShows bookmarks={bookmarks} setBookmarks={setBookmarks} />
+          }
+        />
+        <Route
+          path="/bookmark"
+          element={
+            <Bookmarked bookmarks={bookmarks} setBookmarks={setBookmarks} />
+          }
+        />
       </Routes>
     </div>
   );
