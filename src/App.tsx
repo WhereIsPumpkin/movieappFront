@@ -16,6 +16,7 @@ import { updateUser } from "./store/features/userSlice";
 function App() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const location = useLocation();
   const [bookmarks, setBookmarks] = useState<string[]>([]);
 
@@ -35,7 +36,10 @@ function App() {
             navigate("/home");
           }
         });
-    } else {
+    } else if (
+      location.pathname !== "/register" &&
+      location.pathname !== "/login"
+    ) {
       navigate("/login");
     }
   }, [navigate, location]);
@@ -53,7 +57,7 @@ function App() {
           }
         });
     }
-  }, [dispatch, bookmarks]);
+  }, [dispatch, location]);
 
   return (
     <div className="bg-darkblue min-h-screen ">

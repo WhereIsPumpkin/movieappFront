@@ -2,10 +2,8 @@ import fullBookMark from "../assets/icon-bookmark-full.svg";
 import emptyBookMark from "../assets/icon-bookmark-empty.svg";
 import movieCat from "../assets/icon-category-movie.svg";
 import tvCat from "../assets/icon-category-tv.svg";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import Cookies from "js-cookie";
-import { selectUser } from "../store/features/userSlice";
 
 export type Media = {
   _id: string;
@@ -27,10 +25,8 @@ type MediaItemProps = {
   setBookmarks: (bookmarks: string[]) => void;
 };
 
-const MediaItem = ({ media, setBookmarks }: MediaItemProps) => {
+const MediaItem = ({ media, setBookmarks, bookmarks }: MediaItemProps) => {
   const { _id, thumbnail, year, category, rating, title } = media;
-  const user = useSelector(selectUser);
-
   const fetchBookmarks = async () => {
     try {
       const response = await axios.post(
@@ -70,11 +66,11 @@ const MediaItem = ({ media, setBookmarks }: MediaItemProps) => {
 
       <div className="w-8 h-8 bg-[#10141E] bg-opacity-50 absolute top-2 right-2 flex items-center justify-center rounded-[50%]">
         <img
-          src={user.bookmarks.includes(_id) ? fullBookMark : emptyBookMark}
           onClick={async () => {
             await handleBookmark(_id);
             await fetchBookmarks();
           }}
+          src={bookmarks.includes(_id) ? fullBookMark : emptyBookMark}
         />
       </div>
 

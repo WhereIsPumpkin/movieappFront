@@ -37,7 +37,7 @@ const Movies = ({ bookmarks, setBookmarks }: MoviesProps) => {
             .map((movie) => (
               <MediaItem
                 media={movie as Media}
-                key={movie._id}
+                key={`${movie._id}-${bookmarks.includes(movie._id)}`}
                 setBookmarks={setBookmarks}
                 bookmarks={bookmarks}
               />

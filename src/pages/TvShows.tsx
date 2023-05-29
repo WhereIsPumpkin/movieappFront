@@ -4,6 +4,7 @@ import Search from "../components/Search";
 import { useSelector } from "react-redux";
 import { selectMovies } from "../store/features/movieSlice";
 import MediaItem from "../components/MediaItem";
+import { Media } from "../components/MediaItem";
 
 interface SeriesProps {
   bookmarks: string[];
@@ -35,8 +36,8 @@ const TVShows = ({ bookmarks, setBookmarks }: SeriesProps) => {
             )
             .map((tvShow) => (
               <MediaItem
-                media={tvShow}
-                key={tvShow._id}
+                media={tvShow as Media}
+                key={`${tvShow._id}-${bookmarks.includes(tvShow._id)}`}
                 setBookmarks={setBookmarks}
                 bookmarks={bookmarks}
               />
