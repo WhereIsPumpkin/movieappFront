@@ -27,7 +27,7 @@ const Movies = ({ bookmarks, setBookmarks }: MoviesProps) => {
         Movies
       </h1>
       <div className="flex flex-wrap pl-4">
-        <ul className="grid grid-cols-2 grid-rows-2 gap-x-[15px] gap-y-[16px]">
+        <ul className="grid grid-cols-2 grid-rows-2 gap-x-[15px] gap-y-[16px] md:grid md:grid-cols-3 md:grid-rows-1 md:gap-x-8 md:gap-y-6 ml-auto mr-auto md:mr-0 md:ml-0 mdx:ml-auto mdx:mr-auto">
           {movies
             .filter(
               (movie) =>

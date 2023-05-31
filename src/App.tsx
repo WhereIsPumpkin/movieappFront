@@ -38,7 +38,8 @@ function App() {
         });
     } else if (
       location.pathname !== "/register" &&
-      location.pathname !== "/login"
+      location.pathname !== "/login" &&
+      location.pathname !== "/confirm-email"
     ) {
       navigate("/login");
     }

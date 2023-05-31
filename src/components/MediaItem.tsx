@@ -4,12 +4,14 @@ import movieCat from "../assets/icon-category-movie.svg";
 import tvCat from "../assets/icon-category-tv.svg";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { useMediaQuery } from "@mui/material";
 
 export type Media = {
   _id: string;
   thumbnail: {
     regular: {
       small: string;
+      medium: string;
     };
   };
   isBookmarked: boolean;
@@ -27,6 +29,7 @@ type MediaItemProps = {
 
 const MediaItem = ({ media, setBookmarks, bookmarks }: MediaItemProps) => {
   const { _id, thumbnail, year, category, rating, title } = media;
+
   const fetchBookmarks = async () => {
     try {
       const response = await axios.post(
@@ -40,6 +43,8 @@ const MediaItem = ({ media, setBookmarks, bookmarks }: MediaItemProps) => {
       console.error(error);
     }
   };
+
+  const isMd = useMediaQuery("(min-width:768px)");
 
   const handleBookmark = async (id: string) => {
     try {
@@ -60,8 +65,10 @@ const MediaItem = ({ media, setBookmarks, bookmarks }: MediaItemProps) => {
   return (
     <li key={_id} className="text-white relative">
       <img
-        className="w-[164px] h-[110px] rounded-lg"
-        src={`https://movieback.onrender.com/${thumbnail.regular.small}`}
+        className="w-[164px] h-[110px] rounded-lg md:w-[220px] md:h-[140px]"
+        src={`https://movieback.onrender.com/${
+          isMd ? thumbnail.regular.medium : thumbnail.regular.small
+        }`}
       />
 
       <div className="w-8 h-8 bg-[#10141E] bg-opacity-50 absolute top-2 right-2 flex items-center justify-center rounded-[50%]">

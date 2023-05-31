@@ -45,7 +45,10 @@ const Bookmarked = ({ bookmarks, setBookmarks }: BookmarkProps) => {
             Bookmarked Movies
           </h1>
           <div className="flex pl-4 mb-6">
-            <ul className="grid grid-cols-2 grid-rows-1 gap-x-[15px] gap-y-[16px]">
+            <ul
+              className="grid grid-cols-2 grid-rows-1 gap-x-[15px] gap-y-[16px] md:grid md:grid-cols-3 md:grid-rows-1 md:gap-x-8 md:gap-y-6
+              ml-auto mr-auto md:mr-0 md:ml-0 mdx:ml-auto mdx:mr-auto"
+            >
               {bookmarkedMovies.map((movie) => (
                 <MediaItem
                   media={movie}
@@ -65,7 +68,10 @@ const Bookmarked = ({ bookmarks, setBookmarks }: BookmarkProps) => {
             Bookmarked TV Series
           </h1>
           <div className="flex flex-wrap pl-4">
-            <ul className="grid grid-cols-2 grid-rows-1 gap-x-[15px] gap-y-[16px]">
+            <ul
+              className="grid grid-cols-2 grid-rows-1 gap-x-[15px] gap-y-[16px] md:grid md:grid-cols-3 md:grid-rows-1 md:gap-x-8 md:gap-y-6 ml-auto mr-auto md:mr-0 md:ml-0 mdx:ml-auto mdx:mr-auto
+"
+            >
               {bookmarkedTVShows.map((tvShow) => (
                 <MediaItem
                   media={tvShow}

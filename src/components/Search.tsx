@@ -7,12 +7,12 @@ interface SearchProps {
 
 const Search: React.FC<SearchProps> = ({ placeholder, onSearch }) => {
   return (
-    <div className="py-6 px-4 flex gap-4">
+    <div className="py-6 px-4 flex gap-4 md:px-6 md:py-8 items-center">
       <img src={searchIcon} alt="search" className="w-6 h-6" />
       <input
         type="text"
         placeholder={placeholder || "Search for movies or TV series"}
-        className="bg-transparent w-full focus:outline-none font-outfit font-light text-base leading-5 text-white"
+        className="bg-transparent w-full focus:outline-none font-outfit font-light text-base leading-5 text-white md:text-[24px]"
         onChange={onSearch}
       />
     </div>

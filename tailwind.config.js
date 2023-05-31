@@ -2,6 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    screens: {
+      mob: "375px",
+      md: "768px",
+      mdx: "790px",
+      def: "0px",
+    },
     extend: {
       colors: {
         "custom-gray": "#5A698F",

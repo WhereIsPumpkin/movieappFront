@@ -17,52 +17,56 @@ const Header = () => {
   const user = useSelector(selectUser);
 
   return (
-    <header className="bg-semidarkblue flex w-full p-4 items-center justify-between">
-      <img src={logo} alt="logo" className="w-6 h-5" />
-      <div className="flex gap-6 items-center">
-        <img
-          src={location.pathname === "/home" ? activeHomeNav : homeNav}
-          alt="home"
-          className="w-4 h-4"
-          onClick={() => {
-            navigate("/home");
-          }}
-        />
-        <img
-          src={location.pathname === "/movies" ? activeMoviesNav : moviesNav}
-          alt="movies"
-          className="w-4 h-4"
-          onClick={() => {
-            navigate("/movies");
-          }}
-        />
-        <img
-          src={location.pathname === "/series" ? activeSeriesNav : seriesNav}
-          onClick={() => {
-            navigate("/series");
-          }}
-          alt="series"
-          className="w-4 h-4"
-        />
-        <img
-          src={
-            location.pathname === "/bookmark" ? activeBookmarkNav : bookmarkNav
-          }
-          onClick={() => {
-            navigate("/bookmark");
-          }}
-          alt="bookmark"
-          className="w-4 h-4"
-        />
-      </div>
-      <div className="border border-solid border-white rounded-full overflow-hidden">
-        <img
-          src={`https://movieback.onrender.com/${user.avatar}`}
-          alt="avatar"
-          className="w-6 h-6"
-        />
-      </div>
-    </header>
+    <div className="md:p-6 md:pb-0">
+      <header className="bg-semidarkblue flex w-full p-4 items-center justify-between md:rounded-[10px] md:pl-6 ">
+        <img src={logo} alt="logo" className="w-6 h-5 md:w-8 md:h-[25.6px]" />
+        <div className="flex gap-6 items-center md:gap-8">
+          <img
+            src={location.pathname === "/home" ? activeHomeNav : homeNav}
+            alt="home"
+            className="w-4 h-4 md:w-5 md:h-5"
+            onClick={() => {
+              navigate("/home");
+            }}
+          />
+          <img
+            src={location.pathname === "/movies" ? activeMoviesNav : moviesNav}
+            alt="movies"
+            className="w-4 h-4 md:w-5 md:h-5"
+            onClick={() => {
+              navigate("/movies");
+            }}
+          />
+          <img
+            src={location.pathname === "/series" ? activeSeriesNav : seriesNav}
+            onClick={() => {
+              navigate("/series");
+            }}
+            alt="series"
+            className="w-4 h-4 md:w-5 md:h-5"
+          />
+          <img
+            src={
+              location.pathname === "/bookmark"
+                ? activeBookmarkNav
+                : bookmarkNav
+            }
+            onClick={() => {
+              navigate("/bookmark");
+            }}
+            alt="bookmark"
+            className="w-4 h-4 md:w-5 md:h-5"
+          />
+        </div>
+        <div className="border border-solid border-white rounded-full overflow-hidden ">
+          <img
+            src={`https://movieback.onrender.com/${user.avatar}`}
+            alt="avatar"
+            className="w-6 h-6 md:w-8 md:h-8"
+          />
+        </div>
+      </header>
+    </div>
   );
 };
 
