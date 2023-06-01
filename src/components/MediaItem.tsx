@@ -12,6 +12,7 @@ export type Media = {
     regular: {
       small: string;
       medium: string;
+      large: string;
     };
   };
   isBookmarked: boolean;
@@ -45,6 +46,7 @@ const MediaItem = ({ media, setBookmarks, bookmarks }: MediaItemProps) => {
   };
 
   const isMd = useMediaQuery("(min-width:768px)");
+  const isLg = useMediaQuery("(min-width:1440px)");
 
   const handleBookmark = async (id: string) => {
     try {
@@ -65,9 +67,13 @@ const MediaItem = ({ media, setBookmarks, bookmarks }: MediaItemProps) => {
   return (
     <li key={_id} className="text-white relative">
       <img
-        className="w-[164px] h-[110px] rounded-lg md:w-[220px] md:h-[140px]"
+        className="w-[164px] h-[110px] rounded-lg md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[174px]"
         src={`https://movieback.onrender.com/${
-          isMd ? thumbnail.regular.medium : thumbnail.regular.small
+          isMd
+            ? thumbnail.regular.medium
+            : isLg
+            ? thumbnail.regular.large
+            : thumbnail.regular.small
         }`}
       />
 

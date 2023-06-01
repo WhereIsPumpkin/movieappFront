@@ -66,227 +66,307 @@ const Home: React.FC<HomeProps> = ({ bookmarks, setBookmarks }) => {
   fetchBookmarks();
 
   const isMd = useMediaQuery("(min-width:768px)");
+  const isLg = useMediaQuery("(min-width:1440px)");
 
   return (
-    <>
+    <div className="lg:flex ">
       <Header />
-      <Search onSearch={handleSearch} />
-      <div className="flex flex-col gap-6">
-        {searchTerm === "" && (
-          <div className="pl-4 flex flex-col gap-4">
-            <h1 className="font-outfit font-light text-[20px] leading-6 text-white">
-              Trending
+      <div className="pb-12">
+        <Search onSearch={handleSearch} />
+        <div className="flex flex-col gap-6">
+          {searchTerm === "" && (
+            <div className="pl-4 flex flex-col gap-4">
+              <h1 className="font-outfit font-light text-[20px] leading-6 text-white">
+                Trending
+              </h1>
+              {/* Mobile Slider */}
+
+              <div className="md:hidden lg:hidden">
+                <Splide
+                  options={{
+                    perPage: 1,
+                    fixedWidth: 240,
+                    gap: "16px",
+                    arrows: false,
+                    pagination: false,
+                  }}
+                >
+                  {movies.map((movie) => {
+                    if (
+                      movie.thumbnail &&
+                      movie.thumbnail.trending &&
+                      movie.thumbnail.trending.small
+                    ) {
+                      return (
+                        <SplideSlide key={movie._id}>
+                          <div className="relative">
+                            <img
+                              className="rounded-lg w-[240px] h-[145px]"
+                              src={`https://movieback.onrender.com/${movie.thumbnail.trending.small}`}
+                              alt={movie.title}
+                            />
+
+                            <div className="absolute left-4 bottom-4 text-white flex flex-col gap-[5px]">
+                              <div className="flex gap-2 items-center">
+                                <p className="font-outfit  font-light text-xs  text-white opacity-75">
+                                  {movie.year}
+                                </p>
+
+                                <p>•</p>
+
+                                <div className="flex gap-[6px] items-center">
+                                  <img
+                                    className="h-[12px] w-[12px]"
+                                    src={
+                                      movie.category === "Movie"
+                                        ? movieCat
+                                        : tvCat
+                                    }
+                                  />
+                                  <p className="font-outfit  font-light text-xs  text-white opacity-75">
+                                    {" "}
+                                    {movie.category}
+                                  </p>
+                                </div>
+
+                                <p>•</p>
+
+                                <p className="font-outfit  font-light text-xs  text-white opacity-75">
+                                  {movie.rating}
+                                </p>
+                              </div>
+
+                              <h1 className="font-outfit  font-medium text-[15px] text-white">
+                                {movie.title}
+                              </h1>
+                            </div>
+                          </div>
+                        </SplideSlide>
+                      );
+                    }
+                  })}
+                </Splide>
+              </div>
+
+              {/* Tablet Slider */}
+
+              <div className="md:block def:hidden lg:hidden">
+                <Splide
+                  options={{
+                    perPage: 1,
+                    fixedWidth: 470,
+                    gap: "40px",
+                    arrows: false,
+                    pagination: false,
+                  }}
+                >
+                  {movies.map((movie) => {
+                    if (
+                      movie.thumbnail &&
+                      movie.thumbnail.trending &&
+                      movie.thumbnail.trending.small
+                    ) {
+                      return (
+                        <SplideSlide key={movie._id}>
+                          <div className="relative">
+                            <img
+                              className="rounded-lg w-[470px] h-[230px]"
+                              src={`https://movieback.onrender.com/${movie.thumbnail.trending.large}`}
+                              alt={movie.title}
+                            />
+
+                            <div className="absolute left-4 bottom-4 text-white flex flex-col gap-[5px]">
+                              <div className="flex gap-2 items-center">
+                                <p className="font-outfit  font-light text-[15px]  text-white opacity-75">
+                                  {movie.year}
+                                </p>
+
+                                <p>•</p>
+
+                                <div className="flex gap-[6px] items-center">
+                                  <img
+                                    className="h-[12px] w-[12px]"
+                                    src={
+                                      movie.category === "Movie"
+                                        ? movieCat
+                                        : tvCat
+                                    }
+                                  />
+                                  <p className="font-outfit  font-light text-xs  text-white opacity-75">
+                                    {" "}
+                                    {movie.category}
+                                  </p>
+                                </div>
+
+                                <p>•</p>
+
+                                <p className="font-outfit  font-light text-xs  text-white opacity-75">
+                                  {movie.rating}
+                                </p>
+                              </div>
+
+                              <h1 className="font-outfit  font-medium text-[15px] text-white">
+                                {movie.title}
+                              </h1>
+                            </div>
+                          </div>
+                        </SplideSlide>
+                      );
+                    }
+                  })}
+                </Splide>
+              </div>
+
+              {/* Desktop Slider */}
+              <div className="md:hidden def:hidden w-screen lg:block">
+                <Splide
+                  options={{
+                    perPage: 2,
+                    fixedWidth: 470,
+                    gap: "40px",
+                    arrows: false,
+                    pagination: false,
+                  }}
+                >
+                  {movies.map((movie) => {
+                    if (
+                      movie.thumbnail &&
+                      movie.thumbnail.trending &&
+                      movie.thumbnail.trending.small
+                    ) {
+                      return (
+                        <SplideSlide key={movie._id}>
+                          <div className="relative">
+                            <img
+                              className="rounded-lg w-[470px] h-[230px]"
+                              src={`https://movieback.onrender.com/${movie.thumbnail.trending.large}`}
+                              alt={movie.title}
+                            />
+
+                            <div className="absolute left-4 bottom-4 text-white flex flex-col gap-[5px]">
+                              <div className="flex gap-2 items-center">
+                                <p className="font-outfit  font-light text-[15px]  text-white opacity-75">
+                                  {movie.year}
+                                </p>
+
+                                <p>•</p>
+
+                                <div className="flex gap-[6px] items-center">
+                                  <img
+                                    className="h-[12px] w-[12px]"
+                                    src={
+                                      movie.category === "Movie"
+                                        ? movieCat
+                                        : tvCat
+                                    }
+                                  />
+                                  <p className="font-outfit  font-light text-xs  text-white opacity-75">
+                                    {" "}
+                                    {movie.category}
+                                  </p>
+                                </div>
+
+                                <p>•</p>
+
+                                <p className="font-outfit  font-light text-xs  text-white opacity-75">
+                                  {movie.rating}
+                                </p>
+                              </div>
+
+                              <h1 className="font-outfit  font-medium text-[15px] text-white">
+                                {movie.title}
+                              </h1>
+                            </div>
+                          </div>
+                        </SplideSlide>
+                      );
+                    }
+                  })}
+                </Splide>
+              </div>
+            </div>
+          )}
+
+          <section className="flex flex-wrap  gap-6  ">
+            <h1 className="font-outfit font-light text-[20px] leading-6 text-white w-full pl-4 md:pl-6">
+              Recommended for you
             </h1>
-            {/* Mobile Slider */}
-            <div className="md:hidden">
-              <Splide
-                options={{
-                  perPage: 1,
-                  fixedWidth: 240,
-                  gap: "16px",
-                  arrows: false,
-                  pagination: false,
-                }}
-              >
-                {movies.map((movie) => {
-                  if (
-                    movie.thumbnail &&
-                    movie.thumbnail.trending &&
-                    movie.thumbnail.trending.small
-                  ) {
-                    return (
-                      <SplideSlide key={movie._id}>
-                        <div className="relative">
-                          <img
-                            className="rounded-lg w-[240px] h-[145px]"
-                            src={`https://movieback.onrender.com/${movie.thumbnail.trending.small}`}
-                            alt={movie.title}
-                          />
 
-                          <div className="absolute left-4 bottom-4 text-white flex flex-col gap-[5px]">
-                            <div className="flex gap-2 items-center">
-                              <p className="font-outfit  font-light text-xs  text-white opacity-75">
-                                {movie.year}
-                              </p>
+            <ul
+              className=" md:pl-6 grid grid-cols-2 grid-rows-2 gap-x-[15px] gap-y-[16px] ml-auto mr-auto md:mr-0 md:ml-0 mdx:ml-auto mdx:mr-auto md:grid md:grid-cols-3 md:grid-rows-1 md:gap-x-8 md:gap-y-6 lg:ml-0
+            lg:mr-0 lg:grid lg:grid-cols-4 lg:grid-rows-1 lg:gap-x-10 lg:gap-y-8  xxl:grid xxl:grid-cols-5 xxl:grid-rows-1 xxl:gap-x-10 xxl:gap-y-8
 
-                              <p>•</p>
-
-                              <div className="flex gap-[6px] items-center">
-                                <img
-                                  className="h-[12px] w-[12px]"
-                                  src={
-                                    movie.category === "Movie"
-                                      ? movieCat
-                                      : tvCat
-                                  }
-                                />
-                                <p className="font-outfit  font-light text-xs  text-white opacity-75">
-                                  {" "}
-                                  {movie.category}
-                                </p>
-                              </div>
-
-                              <p>•</p>
-
-                              <p className="font-outfit  font-light text-xs  text-white opacity-75">
-                                {movie.rating}
-                              </p>
-                            </div>
-
-                            <h1 className="font-outfit  font-medium text-[15px] text-white">
-                              {movie.title}
-                            </h1>
-                          </div>
-                        </div>
-                      </SplideSlide>
-                    );
-                  }
-                })}
-              </Splide>
-            </div>
-
-            {/* Tablet Slider */}
-            <div className="md:block def:hidden">
-              <Splide
-                options={{
-                  perPage: 1,
-                  fixedWidth: 470,
-                  gap: "40px",
-                  arrows: false,
-                  pagination: false,
-                }}
-              >
-                {movies.map((movie) => {
-                  if (
-                    movie.thumbnail &&
-                    movie.thumbnail.trending &&
-                    movie.thumbnail.trending.small
-                  ) {
-                    return (
-                      <SplideSlide key={movie._id}>
-                        <div className="relative">
-                          <img
-                            className="rounded-lg w-[470px] h-[230px]"
-                            src={`https://movieback.onrender.com/${movie.thumbnail.trending.large}`}
-                            alt={movie.title}
-                          />
-
-                          <div className="absolute left-4 bottom-4 text-white flex flex-col gap-[5px]">
-                            <div className="flex gap-2 items-center">
-                              <p className="font-outfit  font-light text-[15px]  text-white opacity-75">
-                                {movie.year}
-                              </p>
-
-                              <p>•</p>
-
-                              <div className="flex gap-[6px] items-center">
-                                <img
-                                  className="h-[12px] w-[12px]"
-                                  src={
-                                    movie.category === "Movie"
-                                      ? movieCat
-                                      : tvCat
-                                  }
-                                />
-                                <p className="font-outfit  font-light text-xs  text-white opacity-75">
-                                  {" "}
-                                  {movie.category}
-                                </p>
-                              </div>
-
-                              <p>•</p>
-
-                              <p className="font-outfit  font-light text-xs  text-white opacity-75">
-                                {movie.rating}
-                              </p>
-                            </div>
-
-                            <h1 className="font-outfit  font-medium text-[15px] text-white">
-                              {movie.title}
-                            </h1>
-                          </div>
-                        </div>
-                      </SplideSlide>
-                    );
-                  }
-                })}
-              </Splide>
-            </div>
-          </div>
-        )}
-
-        <section className="flex flex-wrap  gap-6 ">
-          <h1 className="font-outfit font-light text-[20px] leading-6 text-white w-full pl-4 md:pl-6">
-            Recommended for you
-          </h1>
-
-          <ul className=" md:pl-6 grid grid-cols-2 grid-rows-2 gap-x-[15px] gap-y-[16px] ml-auto mr-auto md:mr-0 md:ml-0 mdx:ml-auto mdx:mr-auto md:grid md:grid-cols-3 md:grid-rows-1 md:gap-x-8 md:gap-y-6 ">
-            {movies
-              .filter((movie) =>
-                movie.title.toLowerCase().includes(searchTerm.toLowerCase())
-              )
-              .map((movie) => (
-                <li className="flex flex-col gap-2 relative" key={movie._id}>
-                  <img
-                    className="rounded-lg w-[164px] h-[110px] md:w-[220px] md:h-[140px]"
-                    src={`https://movieback.onrender.com/${
-                      isMd
-                        ? movie.thumbnail.regular.medium
-                        : movie.thumbnail.regular.small
-                    }`}
-                    alt={movie.title}
-                  />
-
-                  <div className="w-8 h-8 bg-[#10141E] bg-opacity-50 absolute top-2 right-4 flex items-center justify-center rounded-[50%]">
+            "
+            >
+              {movies
+                .filter((movie) =>
+                  movie.title.toLowerCase().includes(searchTerm.toLowerCase())
+                )
+                .map((movie) => (
+                  <li className="flex flex-col gap-2 relative" key={movie._id}>
                     <img
-                      src={
-                        bookmarks.includes(movie._id)
-                          ? fullBookMark
-                          : emptyBookMark
-                      }
-                      onClick={async () => {
-                        await handleBookmark(movie._id);
-                        await fetchBookmarks();
-                      }}
+                      className="rounded-lg w-[164px] h-[110px] md:w-[220px] md:h-[140px] lg:w-[280px] lg:h-[174px]"
+                      src={`https://movieback.onrender.com/${
+                        isLg
+                          ? movie.thumbnail.regular.large
+                          : isMd
+                          ? movie.thumbnail.regular.medium
+                          : movie.thumbnail.regular.small
+                      }`}
+                      alt={movie.title}
                     />
-                  </div>
 
-                  <div className=" text-white flex flex-col ">
-                    <div className="flex gap-2 items-center">
-                      <p className="font-outfit  font-light text-[11px]  text-white opacity-75">
-                        {movie.year}
-                      </p>
+                    <div className="w-8 h-8 bg-[#10141E] bg-opacity-50 absolute top-2 right-4 flex items-center justify-center rounded-[50%]">
+                      <img
+                        src={
+                          bookmarks.includes(movie._id)
+                            ? fullBookMark
+                            : emptyBookMark
+                        }
+                        onClick={async () => {
+                          await handleBookmark(movie._id);
+                          await fetchBookmarks();
+                        }}
+                      />
+                    </div>
 
-                      <p>•</p>
-
-                      <div className="flex gap-[6px] items-center">
-                        <img
-                          className="h-[12px] w-[12px]"
-                          src={movie.category === "Movie" ? movieCat : tvCat}
-                        />
+                    <div className=" text-white flex flex-col ">
+                      <div className="flex gap-2 items-center">
                         <p className="font-outfit  font-light text-[11px]  text-white opacity-75">
-                          {" "}
-                          {movie.category}
+                          {movie.year}
+                        </p>
+
+                        <p>•</p>
+
+                        <div className="flex gap-[6px] items-center">
+                          <img
+                            className="h-[12px] w-[12px]"
+                            src={movie.category === "Movie" ? movieCat : tvCat}
+                          />
+                          <p className="font-outfit  font-light text-[11px]  text-white opacity-75">
+                            {" "}
+                            {movie.category}
+                          </p>
+                        </div>
+
+                        <p>•</p>
+
+                        <p className="font-outfit  font-light text-[11px]  text-white opacity-75">
+                          {movie.rating}
                         </p>
                       </div>
 
-                      <p>•</p>
-
-                      <p className="font-outfit  font-light text-[11px]  text-white opacity-75">
-                        {movie.rating}
-                      </p>
+                      <h1 className="font-outfit  font-medium text-[14px] text-white">
+                        {movie.title}
+                      </h1>
                     </div>
-
-                    <h1 className="font-outfit  font-medium text-[14px] text-white">
-                      {movie.title}
-                    </h1>
-                  </div>
-                </li>
-              ))}
-          </ul>
-        </section>
+                  </li>
+                ))}
+            </ul>
+          </section>
+        </div>
       </div>
-    </>
+    </div>
   );
 };
 

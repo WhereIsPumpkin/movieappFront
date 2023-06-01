@@ -32,59 +32,61 @@ const Bookmarked = ({ bookmarks, setBookmarks }: BookmarkProps) => {
   };
 
   return (
-    <>
+    <div className="lg:flex">
       <Header />
-      <Search
-        placeholder="Search for bookmarked shows"
-        onSearch={handleSearch}
-      />
+      <div className="pb-12">
+        <Search
+          placeholder="Search for bookmarked shows"
+          onSearch={handleSearch}
+        />
 
-      {bookmarkedMovies.length > 0 ? (
-        <>
-          <h1 className="font-outfit font-light text-[20px] text-white pl-4 mb-6">
-            Bookmarked Movies
-          </h1>
-          <div className="flex pl-4 mb-6">
-            <ul
-              className="grid grid-cols-2 grid-rows-1 gap-x-[15px] gap-y-[16px] md:grid md:grid-cols-3 md:grid-rows-1 md:gap-x-8 md:gap-y-6
-              ml-auto mr-auto md:mr-0 md:ml-0 mdx:ml-auto mdx:mr-auto"
-            >
-              {bookmarkedMovies.map((movie) => (
-                <MediaItem
-                  media={movie}
-                  key={movie._id}
-                  bookmarks={bookmarks}
-                  setBookmarks={setBookmarks}
-                />
-              ))}
-            </ul>
-          </div>
-        </>
-      ) : null}
+        {bookmarkedMovies.length > 0 ? (
+          <>
+            <h1 className="font-outfit font-light text-[20px] text-white pl-4 mb-6">
+              Bookmarked Movies
+            </h1>
+            <div className="flex pl-4 mb-6">
+              <ul
+                className="grid grid-cols-2 grid-rows-1 gap-x-[15px] gap-y-[16px] md:grid md:grid-cols-3 md:grid-rows-1 md:gap-x-8 md:gap-y-6
+              ml-auto mr-auto md:mr-0 md:ml-0 mdx:ml-auto mdx:mr-auto lg:grid lg:grid-cols-4 lg:grid-rows-1 lg:gap-x-10 lg:gap-y-8  xxl:grid xxl:grid-cols-5 xxl:grid-rows-1 xxl:gap-x-10 xxl:gap-y-8"
+              >
+                {bookmarkedMovies.map((movie) => (
+                  <MediaItem
+                    media={movie}
+                    key={movie._id}
+                    bookmarks={bookmarks}
+                    setBookmarks={setBookmarks}
+                  />
+                ))}
+              </ul>
+            </div>
+          </>
+        ) : null}
 
-      {bookmarkedTVShows.length > 0 ? (
-        <>
-          <h1 className="font-outfit font-light text-[20px] text-white pl-4 mb-6">
-            Bookmarked TV Series
-          </h1>
-          <div className="flex flex-wrap pl-4">
-            <ul
-              className="grid grid-cols-2 grid-rows-1 gap-x-[15px] gap-y-[16px] md:grid md:grid-cols-3 md:grid-rows-1 md:gap-x-8 md:gap-y-6 ml-auto mr-auto md:mr-0 md:ml-0 mdx:ml-auto mdx:mr-auto
+        {bookmarkedTVShows.length > 0 ? (
+          <>
+            <h1 className="font-outfit font-light text-[20px] text-white pl-4 mb-6">
+              Bookmarked TV Series
+            </h1>
+            <div className="flex flex-wrap pl-4">
+              <ul
+                className="grid grid-cols-2 grid-rows-1 gap-x-[15px] gap-y-[16px] md:grid md:grid-cols-3 md:grid-rows-1 md:gap-x-8 md:gap-y-6 ml-auto mr-auto md:mr-0 md:ml-0 mdx:ml-auto mdx:mr-auto lg:grid lg:grid-cols-4 lg:grid-rows-1 lg:gap-x-10 lg:gap-y-8  xxl:grid xxl:grid-cols-5 xxl:grid-rows-1 xxl:gap-x-10 xxl:gap-y-8
 "
-            >
-              {bookmarkedTVShows.map((tvShow) => (
-                <MediaItem
-                  media={tvShow}
-                  key={tvShow._id}
-                  setBookmarks={setBookmarks}
-                  bookmarks={bookmarks}
-                />
-              ))}
-            </ul>
-          </div>
-        </>
-      ) : null}
-    </>
+              >
+                {bookmarkedTVShows.map((tvShow) => (
+                  <MediaItem
+                    media={tvShow}
+                    key={tvShow._id}
+                    setBookmarks={setBookmarks}
+                    bookmarks={bookmarks}
+                  />
+                ))}
+              </ul>
+            </div>
+          </>
+        ) : null}
+      </div>
+    </div>
   );
 };
 

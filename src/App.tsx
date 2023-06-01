@@ -61,7 +61,7 @@ function App() {
   }, [dispatch, location]);
 
   return (
-    <div className="bg-darkblue min-h-screen ">
+    <div className="bg-darkblue min-h-screen overflow-x-hidden">
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
         <Route path="/login" element={<Login />} />

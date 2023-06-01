@@ -18,9 +18,9 @@ const Header = () => {
 
   return (
     <div className="md:p-6 md:pb-0">
-      <header className="bg-semidarkblue flex w-full p-4 items-center justify-between md:rounded-[10px] md:pl-6 ">
+      <header className="bg-semidarkblue flex w-full p-4 items-center justify-between md:rounded-[10px] md:pl-6 lg:flex-col lg:p-0 lg:w-[96px] lg:h-[960px] lg:py-[33px]">
         <img src={logo} alt="logo" className="w-6 h-5 md:w-8 md:h-[25.6px]" />
-        <div className="flex gap-6 items-center md:gap-8">
+        <div className="flex gap-6 items-center md:gap-8 lg:flex-col">
           <img
             src={location.pathname === "/home" ? activeHomeNav : homeNav}
             alt="home"
@@ -62,7 +62,7 @@ const Header = () => {
           <img
             src={`https://movieback.onrender.com/${user.avatar}`}
             alt="avatar"
-            className="w-6 h-6 md:w-8 md:h-8"
+            className="w-6 h-6 md:w-8 md:h-8 lg:h-10 lg:w-10"
           />
         </div>
       </header>

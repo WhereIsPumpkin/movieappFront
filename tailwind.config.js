@@ -6,6 +6,8 @@ export default {
       mob: "375px",
       md: "768px",
       mdx: "790px",
+      lg: "1440px",
+      xxl: "1700px",
       def: "0px",
     },
     extend: {
